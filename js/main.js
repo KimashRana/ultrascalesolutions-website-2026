@@ -36,14 +36,33 @@ $(document).ready(function() {
         card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
     }
 
-    // Smooth Scrolling for Nav Links
-    $('a[href^="#"]').on('click', function(event) {
-        var target = $(this.getAttribute('href'));
-        if (target.length) {
-            event.preventDefault();
-            $('html, body').stop().animate({
-                scrollTop: target.offset().top - 80
-            }, 800);
+    // Mobile Dropdown Toggle
+    $('.dropdown > a').on('click', function(e) {
+        if ($(window).width() <= 768) {
+            e.preventDefault();
+            $(this).siblings('.dropdown-menu').toggleClass('active');
+        }
+    });
+
+    // Close dropdown when clicking outside
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.dropdown').length) {
+            $('.dropdown-menu').removeClass('active');
+        }
+    });
+
+    // Smooth Scrolling for Nav Links (refined for multi-page)
+    $('a[href*="#"]').on('click', function(event) {
+        // Only trigger if it's on the same page
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+            if (target.length) {
+                event.preventDefault();
+                $('html, body').stop().animate({
+                    scrollTop: target.offset().top - 80
+                }, 800);
+            }
         }
     });
 
@@ -63,7 +82,7 @@ $(document).ready(function() {
         });
     }, observerOptions);
 
-    $('.service-card, .about-content, .about-image').css({
+    $('.service-card, .about-content, .about-image, .sub-hero, .page-section').css({
         'opacity': '0',
         'transform': 'translateY(30px)',
         'transition': 'all 0.8s ease-out'

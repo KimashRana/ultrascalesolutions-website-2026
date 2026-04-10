@@ -111,6 +111,61 @@ nav.scrolled {
     color: var(--accent-blue);
 }
 
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(15px);
+    background: rgba(10, 14, 26, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1rem 0;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-smooth);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    z-index: 100;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(8px);
+}
+
+.dropdown-menu li {
+    list-style: none;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.8rem 1.5rem;
+    color: var(--text-dim) !important;
+    font-size: 0.85rem !important;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--accent-blue) !important;
+    padding-left: 1.8rem;
+}
+
+.nav-links li {
+    display: flex;
+    align-items: center;
+}
+
 /* Hero Section */
 .hero {
     height: 100vh;
@@ -240,20 +295,22 @@ nav.scrolled {
 }
 
 .service-icon .sprite {
-    width: 300%;
-    height: 200%;
+    width: 100%;
+    height: 100%;
     background: url('../assets/icons/services.png') no-repeat;
-    background-size: cover;
+    background-size: 300% 200%;
     position: absolute;
+    top: 0;
+    left: 0;
 }
 
 /* Icon Positions (3x2 Grid) */
-.icon-web .sprite { left: 0; top: 0; }
-.icon-mobile .sprite { left: -100%; top: 0; }
-.icon-devops .sprite { left: -200%; top: 0; }
-.icon-marketing .sprite { left: 0; top: -100%; }
-.icon-app .sprite { left: -100%; top: -100%; }
-.icon-analytics .sprite { left: -200%; top: -100%; }
+.icon-web .sprite { background-position: 0 0; }
+.icon-mobile .sprite { background-position: 50% 0; }
+.icon-devops .sprite { background-position: 100% 0; }
+.icon-marketing .sprite { background-position: 0 100%; }
+.icon-app .sprite { background-position: 50% 100%; }
+.icon-analytics .sprite { background-position: 100% 100%; }
 
 .service-card h3 {
     font-size: 1.5rem;
@@ -371,6 +428,30 @@ footer {
 .copyright {
     color: var(--text-dim);
     font-size: 0.8rem;
+}
+
+/* Sub-Page Hero */
+.sub-hero {
+    padding: 12rem 10% 6rem;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, rgba(0, 242, 255, 0.1) 0%, transparent 70%);
+}
+
+.sub-hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: 1.5rem;
+}
+
+.sub-hero p {
+    color: var(--text-dim);
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+}
+
+/* Internal Page Sections */
+.page-section {
+    padding: 6rem 10%;
 }
 
 /* Responsive */
