@@ -1,0 +1,73 @@
+$(document).ready(function() {
+    // Navbar Scroll Effect
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 50) {
+            $('nav').addClass('scrolled');
+        } else {
+            $('nav').removeClass('scrolled');
+        }
+    });
+
+    // 3D Tilt Effect for Service Cards
+    const cards = document.querySelectorAll('.service-card');
+    
+    cards.forEach(card => {
+        card.addEventListener('mousemove', handleHover);
+        card.addEventListener('mouseleave', resetTilt);
+    });
+
+    function handleHover(e) {
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    }
+
+    function resetTilt(e) {
+        const card = e.currentTarget;
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+    }
+
+    // Smooth Scrolling for Nav Links
+    $('a[href^="#"]').on('click', function(event) {
+        var target = $(this.getAttribute('href'));
+        if (target.length) {
+            event.preventDefault();
+            $('html, body').stop().animate({
+                scrollTop: target.offset().top - 80
+            }, 800);
+        }
+    });
+
+    // Scroll Revel Animations (Simple implementation)
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                $(entry.target).css({
+                    'opacity': '1',
+                    'transform': 'translateY(0)'
+                });
+            }
+        });
+    }, observerOptions);
+
+    $('.service-card, .about-content, .about-image').css({
+        'opacity': '0',
+        'transform': 'translateY(30px)',
+        'transition': 'all 0.8s ease-out'
+    }).each(function() {
+        observer.observe(this);
+    });
+});
